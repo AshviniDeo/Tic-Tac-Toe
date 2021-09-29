@@ -10,44 +10,56 @@ public class TicTacToe {
 		System.out.println("::Welcome to Tic-Tac-Toe board::");
 
 		makeMove(displayBoard(createBoard()));
-
+   
+	}
+	private static boolean desireMove(char[] board,int input) {
+		return board[input] == ' ';
 	}
 
 	private static void makeMove(char[] board) {
 		Scanner scanner = new Scanner(System.in);
 		char player1 = chooseSymbol();
+		Integer[] validCell = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+		int countComp = 0;
+		int countPlay = 0;
 		char computer = (player1 == 'X') ? 'O' : 'X';
 		Random rand = new Random();
 		while (!win) {
 			int play = rand.nextInt(2);
 			if (play == 0) {
+				
 				System.out.println("Choose cell you want to put symbol[1-9]:");
 				int cell = scanner.nextInt();
-				if (board[cell] == ' ') {
+				
+				if (Arrays.asList(validCell).contains(cell) && board[cell] == ' ') {
 					board[cell] = player1;
-					displayBoard(board);
-
 				} else {
 					System.out.println("Cell already taken..");
 				}
+				displayBoard(board);
+				countPlay += 1;
 			} else {
-				System.out.println("Computer turn choose cell to play : ");
-				int computerInput = scanner.nextInt();
-				if (board[computerInput] == ' ') {
-					board[computerInput] = computer;
-					displayBoard(board);
-				} else {
-					System.out.println("Cell already taken..");
-				}
 
+				System.out.println("Computer turn choose cell to play : ");
+			    if(board[1] == ' ') {
+			    	board[1] = computer;
+			    }else if(board[3] == ' ') {
+			    	board[3] = computer;
+			    }else if(board[7] == ' ') {
+			    	board[7] = computer;
+			    }else if(board[9] == ' ') {
+			    	board[9] = computer;
+			    }
+				displayBoard(board);
+				countComp += 1;
 			}
-			  
-				checkWin(board);
+			if (countPlay == 5 || countComp == 5) {
+				System.out.println("It's TIE...!!!");
+			}
+			checkWin(board);
 		}
-		 if(win != true) {
-			 System.out.println("Its a tie..!!");
-		 }
-		System.out.println("Player with '"+ chr +"'symbol is a Winner...!!");
+
+		System.out.println("Player with '" + chr + "'symbol is a Winner...!!");
 
 	}
 
@@ -73,7 +85,7 @@ public class TicTacToe {
 
 				break;
 			}
-		} 
+		}
 		return chr;
 	}
 
@@ -96,6 +108,7 @@ public class TicTacToe {
 		} else if (board[3] == board[5] && board[5] == board[7] && board[7] != ' ') {
 			istriple = true;
 		}
+
 		return istriple;
 	}
 
