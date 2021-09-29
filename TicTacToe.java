@@ -1,5 +1,6 @@
 package bridgeLabz;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
@@ -26,7 +27,7 @@ public class TicTacToe {
 		Random rand = new Random();
 		while (!win) {
 			int play = rand.nextInt(2);
-			if (play == 0) {
+			if (play == 1) {
 				
 				System.out.println("Choose cell you want to put symbol[1-9]:");
 				int cell = scanner.nextInt();
@@ -38,7 +39,7 @@ public class TicTacToe {
 				}
 				displayBoard(board);
 				countPlay += 1;
-			} else {
+			} else{
 
 				System.out.println("Computer turn choose cell to play : ");
 			    if(board[1] == ' ') {
@@ -49,10 +50,18 @@ public class TicTacToe {
 			    	board[7] = computer;
 			    }else if(board[9] == ' ') {
 			    	board[9] = computer;
+			    }else if(board[5] == ' ') {
+			    	board[5] = computer;
+			    }else {
+			    	int input = rand.nextInt(9);
+			    	if(board[input] == ' ') {
+			    		board[input] = computer;
+			    	}
 			    }
 				displayBoard(board);
 				countComp += 1;
 			}
+			
 			if (countPlay == 5 || countComp == 5) {
 				System.out.println("It's TIE...!!!");
 			}
